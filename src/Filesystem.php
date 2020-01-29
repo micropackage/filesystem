@@ -109,7 +109,7 @@ class Filesystem {
 			if ( ! isset( $arguments[0] ) ) {
 				$arguments[0] = '';
 			}
-			$arguments[0] = $this->base_path() . $arguments[0];
+			$arguments[0] = $this->path( $arguments[0] );
 		}
 
 		return call_user_func_array( [ $this->wp_filesystem, $method_name ], $arguments );

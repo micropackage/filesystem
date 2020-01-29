@@ -117,20 +117,31 @@ class Filesystem {
 	}
 
 	/**
-	 * Creates a directory recursively.
+	 * Creates a directory.
 	 *
 	 * @since [next]
 	 *
-	 * @param string     $path  Path for new directory.
-	 * @param int|false  $chmod Optional. The permissions as octal number (or false to skip chmod).
-	 *                          Default false.
-	 * @param string|int $chown Optional. A user name or number (or false to skip chown).
-	 *                          Default false.
-	 * @param string|int $chgrp Optional. A group name or number (or false to skip chgrp).
-	 *                          Default false.
+	 * @param string     $path      Path for new directory.
+	 * @param int|false  $chmod     Optional. The permissions as octal number (or false to skip chmod).
+	 *                              Default false.
+	 * @param string|int $chown     Optional. A user name or number (or false to skip chown).
+	 *                              Default false.
+	 * @param string|int $chgrp     Optional. A group name or number (or false to skip chgrp).
+	 *                              Default false.
+	 * @param bool       $recursive Whether to act recursively.
 	 * @return bool True on success, false on failure.
+	 * @throws \Exception If recursive parameter used width filesystem method other than direct.
 	 */
-	public function mkdir_p( $path, $chmod = false, $chown = false, $chgrp = false ) {
+	public function mkdir( $path, $chmod = false, $chown = false, $chgrp = false, $recursive = false ) {
+
+		if ( ! $this->wp_filesystem instanceof \WP_Filesystem_Direct ) {
+			if ( $recursive ) {
+				throw new \Exception( 'Current filesystem method does not support recursive directory creation.' );
+			}
+
+			$this->wp_filesystem->mkdir( $path, $chmod, $chown, $chgrp );
+		}
+
 		// Safe mode fails with a trailing slash under certain PHP versions.
 		$path = untrailingslashit( $path );
 		if ( empty( $path ) ) {
@@ -142,17 +153,20 @@ class Filesystem {
 		}
 
 		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-		if ( ! @mkdir( $path, $chmod, true ) ) {
+		if ( ! @mkdir( $this->path( $path ), $chmod, true ) ) {
 			return false;
 		}
-		$this->chmod( $path, $chmod );
+
 		if ( $chown ) {
 			$this->chown( $path, $chown );
 		}
+
 		if ( $chgrp ) {
 			$this->chgrp( $path, $chgrp );
 		}
+
 		return true;
+
 	}
 
 	/**

@@ -119,7 +119,7 @@ class Filesystem {
 	 * Creates a directory.
 	 *
 	 * @throws \Exception If recursive parameter used width filesystem method other than direct.
-	 * @since [next]
+	 * @since 1.1.0
 	 *
 	 * @param  string     $path      Path for new directory.
 	 * @param  int|false  $chmod     Optional. The permissions as octal number (or false to skip chmod).

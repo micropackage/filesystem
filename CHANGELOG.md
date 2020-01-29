@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [next]
+## 1.1.0 - 29.01.2020
 
 ### Added:
 * mkdir support for recursive dir creation when using Direct method.

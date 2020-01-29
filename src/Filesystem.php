@@ -117,6 +117,45 @@ class Filesystem {
 	}
 
 	/**
+	 * Creates a directory recursively.
+	 *
+	 * @since [next]
+	 *
+	 * @param string     $path  Path for new directory.
+	 * @param int|false  $chmod Optional. The permissions as octal number (or false to skip chmod).
+	 *                          Default false.
+	 * @param string|int $chown Optional. A user name or number (or false to skip chown).
+	 *                          Default false.
+	 * @param string|int $chgrp Optional. A group name or number (or false to skip chgrp).
+	 *                          Default false.
+	 * @return bool True on success, false on failure.
+	 */
+	public function mkdir_p( $path, $chmod = false, $chown = false, $chgrp = false ) {
+		// Safe mode fails with a trailing slash under certain PHP versions.
+		$path = untrailingslashit( $path );
+		if ( empty( $path ) ) {
+			return false;
+		}
+
+		if ( ! $chmod ) {
+			$chmod = FS_CHMOD_DIR;
+		}
+
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		if ( ! @mkdir( $path, $chmod, true ) ) {
+			return false;
+		}
+		$this->chmod( $path, $chmod );
+		if ( $chown ) {
+			$this->chown( $path, $chown );
+		}
+		if ( $chgrp ) {
+			$this->chgrp( $path, $chgrp );
+		}
+		return true;
+	}
+
+	/**
 	 * Changes the path to URL
 	 *
 	 * @since  1.0.0

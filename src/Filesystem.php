@@ -58,7 +58,6 @@ class Filesystem {
 		'mtime',
 		'size',
 		'touch',
-		'mkdir',
 		'rmdir',
 		'dirlist',
 	];
@@ -119,18 +118,18 @@ class Filesystem {
 	/**
 	 * Creates a directory.
 	 *
+	 * @throws \Exception If recursive parameter used width filesystem method other than direct.
 	 * @since [next]
 	 *
-	 * @param string     $path      Path for new directory.
-	 * @param int|false  $chmod     Optional. The permissions as octal number (or false to skip chmod).
-	 *                              Default false.
-	 * @param string|int $chown     Optional. A user name or number (or false to skip chown).
-	 *                              Default false.
-	 * @param string|int $chgrp     Optional. A group name or number (or false to skip chgrp).
-	 *                              Default false.
-	 * @param bool       $recursive Whether to act recursively.
-	 * @return bool True on success, false on failure.
-	 * @throws \Exception If recursive parameter used width filesystem method other than direct.
+	 * @param  string     $path      Path for new directory.
+	 * @param  int|false  $chmod     Optional. The permissions as octal number (or false to skip chmod).
+	 *                               Default false.
+	 * @param  string|int $chown     Optional. A user name or number (or false to skip chown).
+	 *                               Default false.
+	 * @param  string|int $chgrp     Optional. A group name or number (or false to skip chgrp).
+	 *                               Default false.
+	 * @param  bool       $recursive Whether to act recursively.
+	 * @return bool                  True on success, false on failure.
 	 */
 	public function mkdir( $path, $chmod = false, $chown = false, $chgrp = false, $recursive = false ) {
 

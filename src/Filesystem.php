@@ -87,7 +87,7 @@ class Filesystem {
 		global $wp_filesystem;
 
 		require_once ABSPATH . '/wp-admin/includes/file.php';
-		WP_Filesystem();
+		\WP_Filesystem();
 
 		$this->wp_filesystem = $wp_filesystem;
 

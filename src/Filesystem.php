@@ -26,7 +26,7 @@ class Filesystem {
 	 *
 	 * @var WP_Filesystem_*
 	 */
-	protected $wp_filesystem;
+	protected static $wp_filesystem;
 
 	/**
 	 * WP_Filesystem's methods
@@ -72,7 +72,7 @@ class Filesystem {
 
 		$this->base_dir = trailingslashit( wp_normalize_path( $base_dir ) );
 
-		$this->init_wp_filesystem();
+		self::init_wp_filesystem();
 
 	}
 
@@ -82,14 +82,18 @@ class Filesystem {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	private function init_wp_filesystem() {
+	private static function init_wp_filesystem() {
+
+		if ( self::$wp_filesystem ) {
+			return;
+		}
 
 		global $wp_filesystem;
 
 		require_once ABSPATH . '/wp-admin/includes/file.php';
 		WP_Filesystem();
 
-		$this->wp_filesystem = $wp_filesystem;
+		self::$wp_filesystem = $wp_filesystem;
 
 	}
 
@@ -111,7 +115,7 @@ class Filesystem {
 			$arguments[0] = $this->path( $arguments[0] );
 		}
 
-		return call_user_func_array( [ $this->wp_filesystem, $method_name ], $arguments );
+		return call_user_func_array( [ self::$wp_filesystem, $method_name ], $arguments );
 
 	}
 
@@ -133,12 +137,12 @@ class Filesystem {
 	 */
 	public function mkdir( $path, $chmod = false, $chown = false, $chgrp = false, $recursive = false ) {
 
-		if ( ! $this->wp_filesystem instanceof \WP_Filesystem_Direct ) {
+		if ( ! self::$wp_filesystem instanceof \WP_Filesystem_Direct ) {
 			if ( $recursive ) {
 				throw new \Exception( 'Current filesystem method does not support recursive directory creation.' );
 			}
 
-			$this->wp_filesystem->mkdir( $path, $chmod, $chown, $chgrp );
+			self::$wp_filesystem->mkdir( $path, $chmod, $chown, $chgrp );
 		}
 
 		// Safe mode fails with a trailing slash under certain PHP versions.

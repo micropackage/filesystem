@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.1.2 - 10.02.2020
+
+### Changed:
+- WP Filesystem is not cached scroll all Filesystem instances for better performance.
+
 ## 1.1.1 - 05.02.2020
 
 ### Fixed:

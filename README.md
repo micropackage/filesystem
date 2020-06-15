@@ -6,6 +6,10 @@
 [![Total Downloads](https://poser.pugx.org/micropackage/filesystem/downloads)](https://packagist.org/packages/micropackage/filesystem)
 [![License](https://poser.pugx.org/micropackage/filesystem/license)](https://packagist.org/packages/micropackage/filesystem)
 
+<p align="center">
+    <img src="https://bracketspace.com/extras/micropackage/micropackage-small.png" alt="Micropackage logo"/>
+</p>
+
 ## 🧬 About Filesystem
 
 This micropackage is a wrapper for WordPress filesystem intended to be used within the `wp-content` directory.

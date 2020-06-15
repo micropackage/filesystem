@@ -180,7 +180,7 @@ class Filesystem {
 	 * @return string
 	 */
 	public function path_to_url( $path ) {
-		return str_replace( wp_normalize_path( WP_CONTENT_DIR ), WP_CONTENT_URL, $path );
+		return str_replace( wp_normalize_path( WP_CONTENT_DIR ), content_url(), $path );
 	}
 
 	/**

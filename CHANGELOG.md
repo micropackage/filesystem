@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [Next] -
+
+### Fixed:
+- WP_CONTENT_URL not returning proper protocol. Replaced with `content_url()`, thanks to @matt-bernhardt
+
 ## 1.1.2 - 10.02.2020
 
 ### Changed:

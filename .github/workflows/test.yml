@@ -6,6 +6,8 @@ jobs:
   PHPCS:
     runs-on: ubuntu-latest
     steps:
+    - name: Set default PHP version
+      run: sudo update-alternatives --set php /usr/bin/php7.4
     - name: Checkout
       uses: actions/checkout@v2
     - name: Install dependencies

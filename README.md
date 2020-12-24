@@ -62,7 +62,7 @@ echo $filesystem->url( 'assets/images/logo.svg' );
 Convert image file to base64 URL.
 
 ```php
-echo '<img src="' . $filesystem->image_to_base64( 'assets/images/logo.svg' ) . '">';
+printf( '<img src="%s">', $filesystem->image_to_base64( 'assets/images/logo.svg' ) );
 // <img src="data:image/svg+xml;base64,m8q76v7wy4guiev...">
 ```
 

@@ -10,7 +10,8 @@ namespace Micropackage\Filesystem;
 /**
  * Filesystem class
  *
- * @see Available methods: https://developer.wordpress.org/reference/classes/wp_filesystem_base/#methods
+ * @see https://developer.wordpress.org/reference/classes/wp_filesystem_base/#methods
+ * @mixin \WP_Filesystem_Base
  */
 class Filesystem {
 
@@ -24,7 +25,7 @@ class Filesystem {
 	/**
 	 * WP Filesystem object
 	 *
-	 * @var WP_Filesystem_*
+	 * @var \WP_Filesystem_Base
 	 */
 	protected static $wp_filesystem;
 
@@ -84,7 +85,7 @@ class Filesystem {
 	 */
 	private static function init_wp_filesystem() {
 
-		if ( self::$wp_filesystem ) {
+		if ( isset( self::$wp_filesystem ) ) {
 			return;
 		}
 
@@ -230,7 +231,7 @@ class Filesystem {
 
 		$type = pathinfo( $this->path( $image_path ), PATHINFO_EXTENSION );
 
-		// SVG mime type fix.
+		// Fix SVG MIME type.
 		if ( 'svg' === $type ) {
 			$type = 'svg+xml';
 		}

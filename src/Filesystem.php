@@ -136,7 +136,7 @@ class Filesystem {
 	 * @param  bool       $recursive Whether to act recursively.
 	 * @return bool                  True on success, false on failure.
 	 */
-	public function mkdir( $path, $chmod = false, $chown = false, $chgrp = false, $recursive = false ) {
+	public function mkdir( $path = '', $chmod = false, $chown = false, $chgrp = false, $recursive = false ) {
 
 		if ( ! self::$wp_filesystem instanceof \WP_Filesystem_Direct ) {
 			if ( $recursive ) {
@@ -148,9 +148,6 @@ class Filesystem {
 
 		// Safe mode fails with a trailing slash under certain PHP versions.
 		$path = untrailingslashit( $path );
-		if ( empty( $path ) ) {
-			return false;
-		}
 
 		if ( ! $chmod ) {
 			$chmod = FS_CHMOD_DIR;

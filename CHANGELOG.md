@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.1.4
+
+### Changed:
+- Allows mkdir method to get empty parameter.
+
+## 1.1.3 - 15.06.2020
+
+### Fixed:
+- WP_CONTENT_URL not returning proper protocol. Replaced with `content_url()`, thanks to @matt-bernhardt
+
 ## 1.1.3 - 15.06.2020
 
 ### Fixed:

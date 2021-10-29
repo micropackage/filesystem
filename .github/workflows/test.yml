@@ -6,6 +6,10 @@ jobs:
   PHPCS:
     runs-on: ubuntu-latest
     steps:
+    - name: Set default PHP version
+      run: sudo update-alternatives --set php /usr/bin/php7.4
+    - name: Set Composer version
+      run: sudo composer self-update --1
     - name: Checkout
       uses: actions/checkout@v2
     - name: Install dependencies
@@ -27,16 +31,17 @@ jobs:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Install dependencies
-      run: composer install --no-progress
     - name: Setup PHP
       uses: shivammathur/setup-php@v1
       with:
         php-version: ${{ matrix.php }}
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick
         coverage: none
+        tools: composer:v1
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install dependencies
+      run: composer install --no-progress
     - name: PHPUnit
       run: |
         chmod 777 bin/install-wp-tests.sh
